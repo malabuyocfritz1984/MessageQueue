@@ -11,6 +11,8 @@ class Program
     static async Task Main(string[] args)
     {
         var tasks = new List<Task>();
+
+        //Dont use semaphoe slim here use Parallels.Foreach with a max maxDegreeOfParallelism
         using (var semaphore = new SemaphoreSlim(maxDegreeOfParallelism))
         {
             for (int i = 0; i < totalRequests; i++)
@@ -44,3 +46,10 @@ class Program
         return await response.Content.ReadAsStringAsync();
     }
 }
+
+
+/*
+ 1. Creat a new Class with interface "ApiClient" this will use the httpClient and call the api we created
+ 2. Inject the ApiClient in the program class using AddHttpClient
+ 3. Convert the Program to use dependency injection
+ */
